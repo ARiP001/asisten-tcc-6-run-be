@@ -1,4 +1,6 @@
 import User from "../models/UserModel.js";
+import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
 
 // GET
 async function getUsers(req, res) {
@@ -42,8 +44,8 @@ async function getUserById(req, res) {
 // CREATE
 async function createUser(req, res) {
   try {
-    const { name, email, gender } = req.body;
-    if (!name || !email || !gender) {
+    const { name, email, gender, password } = req.body;
+    if (!name || !email || !gender || !password) {
       const msg = `${
         !name ? "Name" : !email ? "Email" : "Gender"
       } field cannot be empty 😠`;
